@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+OpenIDE-Module-Install: cz/lbenda/coursing/client/Installer.class
+OpenIDE-Module-Localizing-Bundle: cz/lbenda/coursing/client/Bundle.properties
+OpenIDE-Module-Requires: org.openide.windows.WindowManager
+

@@ -10,3 +10,36 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+*~
+src/main/python/__pycache__
+*#*
+*.pyc
+*.lock
+*.swp
+*.out
+*.DOD
+*.bak
+*.sqlite3
+*.cpp
+*.h
+*.db
+*.log
+*/target
+target
+**/target
+*/nb-configuration.xml
+common/target/
+server/target/
+rcpcilent/nb-configuration.xml
+rcpcilent/application/nb-configuration.xml
+rcpcilent/branding/nb-configuration.xml
+rcpcilent/user/nb-configuration.xml
+rcpcilent/application/target
+rcpcilent/branding/target
+rcpcilent/user/target
+nb-configuration.xml
+db
+.idea
+*.iml
+coursing.iml

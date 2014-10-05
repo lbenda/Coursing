@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jpa:entity-mappings theme="CLASSIC" status="GENERATED" id="_14123578525721" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:ns4="http://nbmodeler.java.net" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <jpa:mapped-superclass class="DTOImpl" compositePrimaryKeyType="NONE" visibile="true" minimized="false" id="_14123578526014">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.String" visibile="true" id="_14123578526055">
+                <jpa:column unique="false" nullable="false" insertable="true" updatable="true" length="36"/>
+                <jpa:sequence-generator/>
+            </jpa:id>
+            <jpa:basic name="creator" attribute-type="java.lang.String" visibile="true" id="_14123578526106">
+                <jpa:column unique="false" nullable="false" insertable="true" updatable="true" length="60"/>
+            </jpa:basic>
+            <jpa:basic name="created" attribute-type="java.util.Date" visibile="true" id="_14123578526107">
+                <jpa:temporal>TIMESTAMP</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="modified" attribute-type="java.util.Date" visibile="true" id="_14123578526118">
+                <jpa:column unique="false" nullable="false" insertable="true" updatable="true"/>
+                <jpa:temporal>TIMESTAMP</jpa:temporal>
+            </jpa:basic>
+            <jpa:version name="version" attribute-type="java.lang.Long" visibile="true" id="_14123578526119"/>
+        </jpa:attributes>
+    </jpa:mapped-superclass>
+    <jpa:mapped-superclass class="NumberLineImpl" compositePrimaryKeyType="NONE" superclass="DTOImpl" superclassId="_14123578526014" visibile="true" minimized="false" id="_141235785261210">
+        <jpa:attributes>
+            <jpa:basic name="name" attribute-type="java.lang.String" visibile="true" id="_141235785261211">
+                <jpa:column unique="true" nullable="false" insertable="true" updatable="true" length="60"/>
+            </jpa:basic>
+            <jpa:basic name="comment" attribute-type="java.lang.String" visibile="true" id="_141235785261212">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="1024"/>
+            </jpa:basic>
+        </jpa:attributes>
+    </jpa:mapped-superclass>
+    <jpa:entity name="Breed" class="BreedImpl" compositePrimaryKeyType="NONE" superclass="NumberLineImpl" superclassId="_141235785261210" visibile="true" minimized="false" id="_141235785261213">
+        <jpa:attributes/>
+    </jpa:entity>
+    <jpa:entity name="Dog" class="DogImpl" compositePrimaryKeyType="NONE" superclass="DTOImpl" superclassId="_14123578526014" visibile="true" minimized="false" id="_141235785263414">
+        <jpa:attributes>
+            <jpa:basic name="name" attribute-type="java.lang.String" visibile="true" id="_141235785263415">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="150"/>
+            </jpa:basic>
+            <jpa:basic name="genderType" attribute-type="cz.lbenda.coursing.common.GenderType" visibile="true" id="_141235785263517">
+                <jpa:enumerated>STRING</jpa:enumerated>
+            </jpa:basic>
+            <jpa:basic name="licenceNumber" attribute-type="java.lang.String" visibile="true" id="_141235785263518">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="50"/>
+            </jpa:basic>
+            <jpa:basic name="birthdate" attribute-type="java.util.Date" visibile="true" id="_141235785263519">
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="comment" attribute-type="java.lang.String" visibile="true" id="_141235785263520">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="1024"/>
+            </jpa:basic>
+            <jpa:many-to-one name="breed" target-entity="BreedImpl" primaryKey="false" connected-entity-id="_141235785261213" visibile="true" id="_141235785263516"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity name="DogLap" class="DogLapImpl" compositePrimaryKeyType="NONE" superclass="DTOImpl" superclassId="_14123578526014" visibile="true" minimized="false" id="_141235785265321">
+        <jpa:attributes>
+            <jpa:basic name="speed" attribute-type="java.lang.Integer" visibile="true" id="_141235785265324"/>
+            <jpa:basic name="enthusiasm" attribute-type="java.lang.Integer" visibile="true" id="_141235785265325"/>
+            <jpa:basic name="agility" attribute-type="java.lang.Integer" visibile="true" id="_141235785265326"/>
+            <jpa:basic name="endurance" attribute-type="java.lang.Integer" visibile="true" id="_141235785265327"/>
+            <jpa:many-to-one name="lap" target-entity="LapImpl" primaryKey="false" connected-entity-id="_141235785269439" connected-attribute-id="_141235785269542" visibile="true" id="_141235785265322"/>
+            <jpa:many-to-one name="dog" target-entity="DogImpl" primaryKey="false" connected-entity-id="_141235785263414" visibile="true" id="_141235785265323"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity name="DogPlacement" class="DogPlacementImpl" compositePrimaryKeyType="NONE" superclass="DTOImpl" superclassId="_14123578526014" visibile="true" minimized="false" id="_141235785266828">
+        <jpa:attributes>
+            <jpa:basic name="placementGenderBreed" attribute-type="java.lang.Integer" visibile="true" id="_141235785266831"/>
+            <jpa:basic name="placementBreed" attribute-type="java.lang.Integer" visibile="true" id="_141235785266832"/>
+            <jpa:basic name="placementGender" attribute-type="java.lang.Integer" visibile="true" id="_141235785266833"/>
+            <jpa:basic name="placementTotal" attribute-type="java.lang.Integer" visibile="true" id="_141235785266834"/>
+            <jpa:many-to-one name="race" target-entity="RaceImpl" primaryKey="false" connected-entity-id="_141235785270843" connected-attribute-id="_141235785270951" visibile="true" id="_141235785266829"/>
+            <jpa:many-to-one name="dog" target-entity="DogImpl" primaryKey="false" connected-entity-id="_141235785263414" visibile="true" id="_141235785266830"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity name="Judge" class="JudgeImpl" compositePrimaryKeyType="NONE" superclass="DTOImpl" superclassId="_14123578526014" visibile="true" minimized="false" id="_141235785268135">
+        <jpa:attributes>
+            <jpa:basic name="firstName" attribute-type="java.lang.String" visibile="true" id="_141235785268136">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="50"/>
+            </jpa:basic>
+            <jpa:basic name="lastName" attribute-type="java.lang.String" visibile="true" id="_141235785268137">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="50"/>
+            </jpa:basic>
+            <jpa:basic name="comment" attribute-type="java.lang.String" visibile="true" id="_141235785268138">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="1024"/>
+            </jpa:basic>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity name="Lap" class="LapImpl" compositePrimaryKeyType="NONE" superclass="DTOImpl" superclassId="_14123578526014" visibile="true" minimized="false" id="_141235785269439">
+        <jpa:attributes>
+            <jpa:basic name="length" attribute-type="java.lang.Integer" visibile="true" id="_141235785269440"/>
+            <jpa:many-to-one name="race" target-entity="RaceImpl" fetch="LAZY" primaryKey="false" connected-entity-id="_141235785270843" connected-attribute-id="_141235785270950" visibile="true" id="_141235785269441"/>
+            <jpa:one-to-many name="dogLaps" target-entity="DogLapImpl" mapped-by="lap" collection-type="java.util.List" connected-entity-id="_141235785265321" connected-attribute-id="_141235785265322" visibile="true" id="_141235785269542"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity name="Race" class="RaceImpl" compositePrimaryKeyType="NONE" superclass="DTOImpl" superclassId="_14123578526014" visibile="true" minimized="false" id="_141235785270843">
+        <jpa:attributes>
+            <jpa:basic name="name" attribute-type="java.lang.String" visibile="true" id="_141235785270844">
+                <jpa:column name="raceName" unique="false" nullable="false" insertable="true" updatable="true" length="100"/>
+            </jpa:basic>
+            <jpa:basic name="dateOfRace" attribute-type="java.util.Date" visibile="true" id="_141235785270845">
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="place" attribute-type="java.lang.String" visibile="true" id="_141235785270846">
+                <jpa:column unique="false" nullable="false" insertable="true" updatable="true" length="250"/>
+            </jpa:basic>
+            <jpa:basic name="comment" attribute-type="java.lang.String" visibile="true" id="_141235785270847">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="1000"/>
+            </jpa:basic>
+            <jpa:many-to-one name="raceType" target-entity="RaceTypeImpl" primaryKey="false" connected-entity-id="_141235785272352" visibile="true" id="_141235785270848"/>
+            <jpa:one-to-many name="laps" target-entity="LapImpl" mapped-by="race" collection-type="java.util.List" connected-entity-id="_141235785269439" connected-attribute-id="_141235785269441" visibile="true" id="_141235785270950"/>
+            <jpa:one-to-many name="dogPlacements" target-entity="DogPlacementImpl" mapped-by="race" collection-type="java.util.List" connected-entity-id="_141235785266828" connected-attribute-id="_141235785266829" visibile="true" id="_141235785270951"/>
+            <jpa:many-to-many name="judges" target-entity="JudgeImpl" collection-type="java.util.List" connected-entity-id="_141235785268135" visibile="true" id="_141235785270949">
+                <jpa:join-table name="J_Race_Judge">
+                    <jpa:join-column name="Race_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+                    <jpa:inverse-join-column name="Judge_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+                </jpa:join-table>
+            </jpa:many-to-many>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity name="RaceType" class="RaceTypeImpl" compositePrimaryKeyType="NONE" superclass="NumberLineImpl" superclassId="_141235785261210" visibile="true" minimized="false" id="_141235785272352">
+        <jpa:attributes/>
+    </jpa:entity>
+    <jpa:entity name="AppUser" class="UserImpl" compositePrimaryKeyType="NONE" superclass="DTOImpl" superclassId="_14123578526014" visibile="true" minimized="false" id="_141235785273753">
+        <jpa:attributes>
+            <jpa:basic name="firstName" attribute-type="java.lang.String" visibile="true" id="_141235785273754">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="50"/>
+            </jpa:basic>
+            <jpa:basic name="lastName" attribute-type="java.lang.String" visibile="true" id="_141235785273755">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="50"/>
+            </jpa:basic>
+            <jpa:basic name="username" attribute-type="java.lang.String" visibile="true" id="_141235785273756">
+                <jpa:column unique="true" nullable="false" insertable="true" updatable="true" length="60"/>
+            </jpa:basic>
+            <jpa:basic name="validFrom" attribute-type="java.util.Date" visibile="true" id="_141235785273757">
+                <jpa:temporal>TIMESTAMP</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="validTo" attribute-type="java.util.Date" visibile="true" id="_141235785273758">
+                <jpa:temporal>TIMESTAMP</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="userRole" attribute-type="java.lang.String" visibile="true" id="_141235785273759">
+                <jpa:column unique="false" nullable="false" insertable="true" updatable="true" length="1000"/>
+            </jpa:basic>
+            <jpa:basic name="passwd" attribute-type="java.lang.String" visibile="true" id="_141235785273760">
+                <jpa:column unique="false" nullable="false" insertable="true" updatable="true" column-definition="CHAR(60)" length="60"/>
+            </jpa:basic>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:diagram id="_14123578525732">
+        <plane elementRef="_14123578525721" id="_14123578525743_p">
+            <shape elementRef="_141235785261213" id="_141235785261213_gui">
+                <Bounds x="602.0" y="-91.0" width="143.0" height="28.0"/>
+            </shape>
+            <shape elementRef="_141235785263414" id="_141235785263414_gui">
+                <Bounds x="1002.0" y="291.0" width="145.0" height="171.0"/>
+            </shape>
+            <shape elementRef="_141235785265321" id="_141235785265321_gui">
+                <Bounds x="786.0" y="-23.0" width="152.0" height="171.0"/>
+            </shape>
+            <shape elementRef="_141235785266828" id="_141235785266828_gui">
+                <Bounds x="724.0" y="517.0" width="201.0" height="171.0"/>
+            </shape>
+            <shape elementRef="_141235785268135" id="_141235785268135_gui">
+                <Bounds x="-2.0" y="364.0" width="138.0" height="98.0"/>
+            </shape>
+            <shape elementRef="_141235785269439" id="_141235785269439_gui">
+                <Bounds x="-2.0" y="540.0" width="128.0" height="111.0"/>
+            </shape>
+            <shape elementRef="_141235785270843" id="_141235785270843_gui">
+                <Bounds x="406.0" y="517.0" width="156.0" height="211.0"/>
+            </shape>
+            <shape elementRef="_141235785272352" id="_141235785272352_gui">
+                <Bounds x="108.0" y="-23.0" width="169.0" height="28.0"/>
+            </shape>
+            <shape elementRef="_141235785273753" id="_141235785273753_gui">
+                <Bounds x="745.0" y="249.0" width="158.0" height="178.0"/>
+            </shape>
+            <shape elementRef="_14123578526014" id="_14123578526014_gui">
+                <Bounds x="446.0" y="288.0" width="156.0" height="163.0"/>
+            </shape>
+            <shape elementRef="_141235785261210" id="_141235785261210_gui">
+                <Bounds x="378.0" y="64.0" width="212.0" height="78.0"/>
+            </shape>
+        </plane>
+    </jpa:diagram>
+</jpa:entity-mappings>
