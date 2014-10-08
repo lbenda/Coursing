@@ -49,21 +49,21 @@ public class DogImpl extends DTOImpl implements Dog {
     @Column(length=1024)
     private String comment;
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public @Override String getName() { return name; }
+    public @Override void setName(String name) { this.name = name; }
 
-    public Breed getBreed() { return breed; }
-    public void setBreed(Breed breed) { this.breed = breed; }
+    public @Override Breed getBreed() { return breed; }
+    public @Override void setBreed(Breed breed) { this.breed = breed; }
 
-    public GenderType getGenderType() { return genderType; }
-    public void setGenderType(GenderType genderType) { this.genderType = genderType; }
+    public @Override GenderType getGenderType() { return genderType; }
+    public @Override void setGenderType(GenderType genderType) { this.genderType = genderType; }
 
-    public String getLicenceNumber() { return licenceNumber; }
-    public void setLicenceNumber(String licenceNumber) { this.licenceNumber = licenceNumber; }
+    public @Override String getLicenceNumber() { return licenceNumber; }
+    public @Override void setLicenceNumber(String licenceNumber) { this.licenceNumber = licenceNumber; }
 
-    public Date getBirthdate() { return birthdate; }
-    public void setBirthdate(Date birthdate) { this.birthdate = birthdate; }
+    public @Override Date getBirthdate() { return birthdate; }
+    public @Override void setBirthdate(Date birthdate) { this.birthdate = birthdate; }
 
-    public String getComment() { return comment; }
-    public void setComment(String comment) { this.comment = comment; }
+    public @Override String getComment() { return comment; }
+    public @Override void setComment(String comment) { this.comment = comment; }
 }

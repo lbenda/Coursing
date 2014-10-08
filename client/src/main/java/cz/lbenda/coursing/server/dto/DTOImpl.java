@@ -36,7 +36,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @MappedSuperclass
 public class DTOImpl implements DTO, Serializable {
 
-  private static Logger LOGGER = LoggerFactory.getLogger(DTOImpl.class);
+  private static final Logger LOG = LoggerFactory.getLogger(DTOImpl.class);
 
   @Id
   @Column(length = 36, nullable = false)
@@ -57,7 +57,7 @@ public class DTOImpl implements DTO, Serializable {
   @PrePersist
   private void prePersist() {
     if (id == null) { generateId(); }
-    LOGGER.debug("prePersist");
+    LOG.debug("prePersist");
     if (creator == null) {
       creator = SecurityContextHolder.getContext().getAuthentication().getName();
       created = new Date();
@@ -88,7 +88,7 @@ public class DTOImpl implements DTO, Serializable {
   public void setCreated(Date created) { this.created = created; }
 
   @Override
-  public String getModifer() { return modifier; }
+  public String getModifier() { return modifier; }
   @Override
   public void setModifier(String modifier) { this.modifier = modifier; }
 
@@ -106,6 +106,8 @@ public class DTOImpl implements DTO, Serializable {
 
     DTOImpl dto = (DTOImpl) o;
 
+    if (id == null) { return dto == this; }
+
     if (id != null ? !id.equals(dto.id) : dto.id != null) return false;
     if (version != null ? !version.equals(dto.version) : dto.version != null) return false;
 
@@ -114,6 +116,7 @@ public class DTOImpl implements DTO, Serializable {
 
   @Override
   public int hashCode() {
+    if (id == null) { return super.hashCode(); }
     int result = id != null ? id.hashCode() : 0;
     result = 31 * result + (version != null ? version.hashCode() : 0);
     return result;

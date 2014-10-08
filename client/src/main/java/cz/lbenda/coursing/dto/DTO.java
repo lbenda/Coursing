@@ -44,14 +44,14 @@ public interface DTO {
      * @param created date time when the record was created
      */
     void setCreated(Date created);
-    
+
     /** User which record modified at last (the first user is creator)
      * @return user which modified record at last
      */
-    String getModifer();
+    String getModifier();
     /** User which record modified at last (the first user is creator)
      * @param modifier user which modified record at last
-     */    
+     */
     void setModifier(String modifier);
 
     /** Datetime when the record was modified at last (after created set to date of created)
@@ -60,6 +60,6 @@ public interface DTO {
     Date getModified();
     /** Datetime when the record was modified at last (after created set to date of created)
      * @param modified date time when the record modified at last
-     */    
+     */
     void setModified(Date modified);
 }

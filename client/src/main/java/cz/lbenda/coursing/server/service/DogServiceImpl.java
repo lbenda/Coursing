@@ -17,20 +17,30 @@ package cz.lbenda.coursing.server.service;
 
 import cz.lbenda.coursing.dto.Dog;
 import cz.lbenda.coursing.server.AbstractDTOServiceImpl;
+import cz.lbenda.coursing.server.dto.DogImpl;
 import cz.lbenda.coursing.service.DogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by Lukas Benda <lbenda @ lbenda.cz> on 6/21/14.
  */
+@Service("DogService")
 public class DogServiceImpl  extends AbstractDTOServiceImpl<Dog> implements DogService {
 
-  @Autowired
+  @Autowired(required = true)
   private DogRepository repository;
 
   @Override
   protected JpaRepository<Dog, String> repository() {
     return (JpaRepository<Dog, String>) (Object) repository;
+  }
+
+  @Override
+  public Dog createNew() throws UnsupportedOperationException {
+    DogImpl result = new DogImpl();
+    fireDTOChanges(null, result);
+    return result;
   }
 }
