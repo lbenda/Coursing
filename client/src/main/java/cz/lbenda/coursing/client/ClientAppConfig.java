@@ -80,6 +80,7 @@ public class ClientAppConfig {
       prop.put("eclipselink.deploy-on-startup", "true");
       prop.put("eclipselink.ddl-generation", "create-or-extend-tables");
       prop.put("eclipselink.ddl-generation.output-mode", "database");
+      prop.put("eclipselink.create-ddl-jdbc-file-name", "create.sql");
       prop.put("eclipselink.weaving", "static");
       prop.put("eclipselink.weaving.lazy", "true");
       prop.put("eclipselink.weaving.internal", "true");
@@ -104,7 +105,7 @@ public class ClientAppConfig {
     LOG.debug("Datasource nebyl nalezen pomoci springu.");
     // try {
       JdbcDataSource ds = new JdbcDataSource();
-      ds.setUrl("jdbc:h2:tcp://localhost/coursingIs");
+      ds.setUrl("jdbc:h2:tcp://localhost/coursing");
       ds.setUser("sa");
       ds.setPassword("");
       return ds;

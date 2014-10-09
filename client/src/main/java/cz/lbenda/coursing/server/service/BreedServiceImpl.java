@@ -17,13 +17,16 @@ package cz.lbenda.coursing.server.service;
 
 import cz.lbenda.coursing.dto.Breed;
 import cz.lbenda.coursing.server.AbstractDTOServiceImpl;
+import cz.lbenda.coursing.server.dto.BreedImpl;
 import cz.lbenda.coursing.service.BreedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
-/**
+/** BreedService implementation
  * Created by Lukas Benda <lbenda @ lbenda.cz> on 6/21/14.
  */
+@Service("BreedService")
 public class BreedServiceImpl extends AbstractDTOServiceImpl<Breed> implements BreedService {
 
   @Autowired
@@ -32,5 +35,12 @@ public class BreedServiceImpl extends AbstractDTOServiceImpl<Breed> implements B
   @Override
   protected JpaRepository<Breed, String> repository() {
     return (JpaRepository<Breed, String>) (Object) repository;
+  }
+
+  @Override
+  public Breed createNew() throws UnsupportedOperationException {
+    BreedImpl result = new BreedImpl();
+    fireDTOChanges(null, result);
+    return result;
   }
 }

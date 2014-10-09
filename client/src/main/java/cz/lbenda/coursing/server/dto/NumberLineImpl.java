@@ -33,9 +33,10 @@ public abstract class NumberLineImpl extends DTOImpl implements NumberLine {
   @Column(length = 1024)
   private String comment;
 
-  public String getName() { return name; }
-  public void setName(String name) { this.name = name; }
+  public @Override String getName() { return name; }
+  public @Override void setName(String name) { this.name = name; }
 
-  public String getComment() { return comment; }
-  public void setComment(String comment) { this.comment = comment; }
+  public @Override String getComment() { return comment; }
+  public @Override void setComment(String comment) { this.comment = comment; }
+  public @Override String toString() { return getName(); }
 }

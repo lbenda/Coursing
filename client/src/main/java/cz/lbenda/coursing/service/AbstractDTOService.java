@@ -60,6 +60,16 @@ public abstract interface AbstractDTOService<T extends DTO> {
    */
   T createNew() throws UnsupportedOperationException;
 
+  /** Remove given entity
+   * @param entity removed entity.
+   */
+  void delete(T entity);
+
+  /** Remove given entities
+   * @param entities removed entities.
+   */
+  void delete(T[] entities);
+
   void addDTOChangedListener(DTOChangedListener<T> l);
   void removeDTOChangedListener(DTOChangedListener<T> l);
 }

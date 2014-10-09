@@ -61,6 +61,24 @@ public abstract class AbstractDTOServiceImpl<T extends DTO> implements AbstractD
   }
 
   @Override
+  @Transactional(readOnly = false)
+  @Secured("ROLE_ADMIN")
+  public void delete(T entity) {
+    if (entity == null) { return; }
+    repository().delete(entity);
+    fireDTOChanges(entity, null);
+  }
+
+  @Override
+  @Transactional(readOnly = false)
+  @Secured("ROLE_ADMIN")
+  public void delete(T[] entities) {
+    if (entities == null || entities.length == 0) { return; }
+    for (T entity : entities) { repository().delete(entity); }
+    for (T entity : entities) { fireDTOChanges(entity, null); }
+  }
+
+  @Override
   public T createNew() throws UnsupportedOperationException {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }

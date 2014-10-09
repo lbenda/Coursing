@@ -7,8 +7,7 @@ package cz.lbenda.coursing.dto;
 
 import java.util.Date;
 
-/**
- *
+/** Interface for all DTO object which is in application
  * @author benzin
  */
 public interface DTO {

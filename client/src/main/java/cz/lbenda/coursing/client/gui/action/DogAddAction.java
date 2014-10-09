@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @ActionID(
-        category = "Coursing",
+        category = "Coursing/Dog",
         id = "cz.lbenda.coursing.client.gui.action.DogAddAction"
 )
 @ActionRegistration(

@@ -29,7 +29,7 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:mapped-superclass>
-    <jpa:entity name="Breed" class="BreedImpl" compositePrimaryKeyType="NONE" superclass="NumberLineImpl" superclassId="_141235785261210" visibile="true" minimized="false" id="_141235785261213">
+    <jpa:entity name="Breed" class="Breed" compositePrimaryKeyType="NONE" superclass="NumberLineImpl" superclassId="_141235785261210" visibile="true" minimized="false" id="_141235785261213">
         <jpa:attributes/>
     </jpa:entity>
     <jpa:entity name="Dog" class="DogImpl" compositePrimaryKeyType="NONE" superclass="DTOImpl" superclassId="_14123578526014" visibile="true" minimized="false" id="_141235785263414">
@@ -49,7 +49,7 @@
             <jpa:basic name="comment" attribute-type="java.lang.String" visibile="true" id="_141235785263520">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="1024"/>
             </jpa:basic>
-            <jpa:many-to-one name="breed" target-entity="BreedImpl" primaryKey="false" connected-entity-id="_141235785261213" visibile="true" id="_141235785263516"/>
+            <jpa:many-to-one name="breed" target-entity="Breed" primaryKey="false" connected-entity-id="_141235785261213" visibile="true" id="_141235785263516"/>
         </jpa:attributes>
     </jpa:entity>
     <jpa:entity name="DogLap" class="DogLapImpl" compositePrimaryKeyType="NONE" superclass="DTOImpl" superclassId="_14123578526014" visibile="true" minimized="false" id="_141235785265321">
@@ -148,37 +148,37 @@
     <jpa:diagram id="_14123578525732">
         <plane elementRef="_14123578525721" id="_14123578525743_p">
             <shape elementRef="_141235785261213" id="_141235785261213_gui">
-                <Bounds x="602.0" y="-91.0" width="143.0" height="28.0"/>
+                <Bounds x="436.0" y="379.0" width="143.0" height="28.0"/>
             </shape>
             <shape elementRef="_141235785263414" id="_141235785263414_gui">
-                <Bounds x="1002.0" y="291.0" width="145.0" height="171.0"/>
+                <Bounds x="202.0" y="283.0" width="145.0" height="171.0"/>
             </shape>
             <shape elementRef="_141235785265321" id="_141235785265321_gui">
-                <Bounds x="786.0" y="-23.0" width="152.0" height="171.0"/>
+                <Bounds x="2.0" y="317.0" width="152.0" height="171.0"/>
             </shape>
             <shape elementRef="_141235785266828" id="_141235785266828_gui">
-                <Bounds x="724.0" y="517.0" width="201.0" height="171.0"/>
+                <Bounds x="486.0" y="701.0" width="201.0" height="171.0"/>
             </shape>
             <shape elementRef="_141235785268135" id="_141235785268135_gui">
-                <Bounds x="-2.0" y="364.0" width="138.0" height="98.0"/>
+                <Bounds x="337.0" y="603.0" width="138.0" height="98.0"/>
             </shape>
             <shape elementRef="_141235785269439" id="_141235785269439_gui">
-                <Bounds x="-2.0" y="540.0" width="128.0" height="111.0"/>
+                <Bounds x="-206.0" y="283.0" width="128.0" height="111.0"/>
             </shape>
             <shape elementRef="_141235785270843" id="_141235785270843_gui">
-                <Bounds x="406.0" y="517.0" width="156.0" height="211.0"/>
+                <Bounds x="2.0" y="579.0" width="156.0" height="211.0"/>
             </shape>
             <shape elementRef="_141235785272352" id="_141235785272352_gui">
-                <Bounds x="108.0" y="-23.0" width="169.0" height="28.0"/>
+                <Bounds x="607.0" y="379.0" width="169.0" height="28.0"/>
             </shape>
             <shape elementRef="_141235785273753" id="_141235785273753_gui">
-                <Bounds x="745.0" y="249.0" width="158.0" height="178.0"/>
+                <Bounds x="827.0" y="238.0" width="158.0" height="178.0"/>
             </shape>
             <shape elementRef="_14123578526014" id="_14123578526014_gui">
-                <Bounds x="446.0" y="288.0" width="156.0" height="163.0"/>
+                <Bounds x="238.0" y="6.0" width="156.0" height="163.0"/>
             </shape>
             <shape elementRef="_141235785261210" id="_141235785261210_gui">
-                <Bounds x="378.0" y="64.0" width="212.0" height="78.0"/>
+                <Bounds x="499.0" y="241.0" width="212.0" height="78.0"/>
             </shape>
         </plane>
     </jpa:diagram>

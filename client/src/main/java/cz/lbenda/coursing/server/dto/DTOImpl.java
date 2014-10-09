@@ -109,9 +109,7 @@ public class DTOImpl implements DTO, Serializable {
     if (id == null) { return dto == this; }
 
     if (id != null ? !id.equals(dto.id) : dto.id != null) return false;
-    if (version != null ? !version.equals(dto.version) : dto.version != null) return false;
-
-    return true;
+    return !(version != null ? !version.equals(dto.version) : dto.version != null);
   }
 
   @Override
