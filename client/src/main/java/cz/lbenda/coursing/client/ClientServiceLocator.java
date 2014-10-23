@@ -15,10 +15,13 @@
  */
 package cz.lbenda.coursing.client;
 
+import cz.lbenda.coursing.server.PrepareDB;
+import cz.lbenda.coursing.service.SecurityService;
 import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.security.core.AuthenticationException;
 
 /**
  *  @author Lukas Benda <lbenda at lbenda.cz>
@@ -65,8 +68,15 @@ public class ClientServiceLocator {
     this.ctx = new AnnotationConfigApplicationContext(appConfig);
     // ctx.refresh();
     LOG.trace("Defined beans: " + Arrays.toString(ctx.getBeanDefinitionNames()));
-    Object userService = ctx.getBean("UserService");
-    LOG.info("" + userService);
+
+    SecurityService ss = (SecurityService) ctx.getBean(SecurityService.SERVICE_NAME);
+    try {
+      ss.login("sys", "sys");
+      PrepareDB prepareDB = ctx.getBean(PrepareDB.class);
+      prepareDB.prepareDB();
+    } catch (AuthenticationException ex) {
+      LOG.error("The database is already prepared. If you want new, pleas delete old database: " + ctx.getBean("localDb") + ".mv.db");
+    }
     //    ctx.refresh();
   }
 }

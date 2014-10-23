@@ -23,6 +23,7 @@ import cz.lbenda.coursing.dto.RaceType;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -51,14 +52,14 @@ public class RaceImpl extends DTOImpl implements Race {
   @ManyToOne(targetEntity = RaceTypeImpl.class)
   @JoinColumn(name = "RaceType_id")
   private RaceType raceType;
-  @ManyToMany(targetEntity =  JudgeImpl.class)
+  @ManyToMany(targetEntity =  JudgeImpl.class, cascade = CascadeType.PERSIST)
   @JoinTable(name = "J_Race_Judge",
       joinColumns={@JoinColumn(name = "Race_id", referencedColumnName = "id")},
       inverseJoinColumns={@JoinColumn(name = "Judge_id", referencedColumnName = "id")})
   private List<Judge> judges;
-  @OneToMany(targetEntity = LapImpl.class, mappedBy="race")
+  @OneToMany(targetEntity = LapImpl.class, mappedBy="race", cascade = CascadeType.PERSIST)
   private List<Lap> laps;
-  @OneToMany(targetEntity = DogPlacementImpl.class, mappedBy="race")
+  @OneToMany(targetEntity = DogPlacementImpl.class, mappedBy="race", cascade = CascadeType.PERSIST)
   private List<DogPlacement> dogPlacements;
 
   public String getName() { return name; }

@@ -29,6 +29,7 @@ public enum UserRole {
 
   public static UserRole[] toArray(String roles) {
     List<UserRole> result = new ArrayList<>();
+    if (roles == null || "".equals(roles.trim())) { return new UserRole[0]; }
     for (String role : roles.split(",")) {
       result.add(UserRole.valueOf(role.trim()));
     }

@@ -14,7 +14,16 @@ import org.springframework.security.authentication.BadCredentialsException;
 public interface SecurityService {
   public  static final String SERVICE_NAME = "SecurityService";
 
+  public interface SecurityListener {
+    void onLogin();
+    void onLogout();
+  }
+
+  /** login user */
   void login(String username, String password);
+
+  /** Logout current logged user */
+  void logout();
 
   /** Return current logged user object */
   User getCurrentUser();
@@ -26,4 +35,7 @@ public interface SecurityService {
    * @throws BadCredentialsException when the old password didn't match to user password
    */
   void changePassword(User user, char[] oldPassword, char[] newPassword) throws BadCredentialsException ;
+
+  void addSecurityListener(SecurityListener l);
+  void removeSecurityListener(SecurityListener l);
 }

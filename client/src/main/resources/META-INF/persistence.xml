@@ -18,16 +18,27 @@
     <!-- needs to be set to false, other settings are ignored -->
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="eclipselink.weaving" value="static"/>
-      <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
-      <property name="eclipselink.ddl-generation.output-mode" value="both"/>
-      <property name="eclipselink.target-database" value="H2"/>
-      <property name="eclipselink.create-ddl-jdbc-file-name" value="create.sql"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/coursing"/>
+      <!-- <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/> -->
+      <!-- <property name="eclipselink.create-ddl-jdbc-file-name" value="create.sql"/> -->
+      <property name="javax.persistence.jdbc.url" value="jdbc:h2:/tmp/coursing"/> 
+      <!-- <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:coursing" /> -->
       <property name="javax.persistence.jdbc.password" value=""/>
       <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
       <property name="javax.persistence.jdbc.user" value="SA"/>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+
+      <!--property name="eclipselink.logging.level" value="FINEST"/-->
+      <property name="eclipselink.target-database" value="H2"/>
+      <property name="eclipselink.weaving" value="static"/>
+      <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+      <property name="eclipselink.create-ddl-jdbc-file-name" value="/tmp/createDDL_ddlGeneration.sql"/>
+      <property name="eclipselink.drop-ddl-jdbc-file-name" value="/tmp/dropDDL_ddlGeneration.sql"/>
+      <property name="eclipselink.ddl-generation.output-mode" value="both"/>
+
+      <property name="eclipselink.weaving.lazy" value="true"/>
+      <property name="eclipselink.query-results-cache.type" value="WEAK" />
+      <property name="eclipselink.jdbc.batch-writing" value="JDBC" />
+      <property name="eclipselink.jdbc.batch-writing.size" value="1000" />
     </properties>
     <!--
     <properties>

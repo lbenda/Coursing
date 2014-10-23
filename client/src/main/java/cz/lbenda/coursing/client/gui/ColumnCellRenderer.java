@@ -43,7 +43,7 @@ public class ColumnCellRenderer extends DefaultOutlineCellRenderer {
   /**
    * Center the content of the cells displaying text.
    */
-  protected boolean centered = System.getProperty("os.name").toLowerCase().indexOf("windows") < 0;
+  protected boolean centered = System.getProperty("os.name").toLowerCase().contains("windows");
   /**
    * Highlight the non editable cells making the foreground lighter.
    */
@@ -57,10 +57,8 @@ public class ColumnCellRenderer extends DefaultOutlineCellRenderer {
                                                  final boolean hasFocus,
                                                  final int row,
                                                  final int column) {
-    final Component cell;
+    Component cell = null;
     Object valueToDisplay = value;
-    Class valueClasss = String.class;
-    LOG.debug("Value: " + value);
     if (value instanceof Node.Property) {
       try {
         valueToDisplay = ((Node.Property) value).getValue();
@@ -70,10 +68,12 @@ public class ColumnCellRenderer extends DefaultOutlineCellRenderer {
         Exceptions.printStackTrace(ex);
       }
     }
-    TableCellRenderer renderer = table.getDefaultRenderer(valueClasss);
-    if (renderer != null) {
-      cell = renderer.getTableCellRendererComponent(table, valueToDisplay, isSelected,
-          hasFocus, row, column);
+    if (valueToDisplay != null) {
+      TableCellRenderer renderer = table.getDefaultRenderer(valueToDisplay.getClass());
+      if (renderer != null) {
+        cell = renderer.getTableCellRendererComponent(table, valueToDisplay, isSelected,
+                hasFocus, row, column);
+      }
     } else {
       cell = super.getTableCellRendererComponent(table, valueToDisplay, isSelected, hasFocus, row, column);
     }

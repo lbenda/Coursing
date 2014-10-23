@@ -21,4 +21,5 @@ import cz.lbenda.coursing.dto.Breed;
  * Created by Lukas Benda <lbenda @ lbenda.cz> on 6/21/14.
  */
 public interface BreedService extends AbstractDTOService<Breed> {
+  Breed breedByName(String name);
 }

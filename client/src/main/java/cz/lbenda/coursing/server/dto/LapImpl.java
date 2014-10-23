@@ -37,26 +37,31 @@ import javax.persistence.OneToMany;
 public class LapImpl extends DTOImpl implements Lap {
 
   @Column
-  private Integer length;
+  private int position;
+  @Column
+  private Integer lapLength;
   @ManyToOne(targetEntity = RaceImpl.class, fetch = FetchType.LAZY)
   @JoinColumn(name = "Race_id")
   private Race race;
   @OneToMany(targetEntity = DogLapImpl.class, mappedBy="lap")
   private List<DogLap> dogLaps;
 
-  public Integer getLength() { return length; }
-  public void setLength(Integer length) { this.length = length; }
+  public @Override int getPosition() { return position; }
+  public @Override void setPostion(int position) { this.position = position; }
 
-  public Race getRace() { return race; }
-  public void setRace(Race race) { this.race = race; }
+  public @Override Integer getLapLength() { return lapLength; }
+  public @Override void setLapLength(Integer lapLength) { this.lapLength = lapLength; }
 
-  public Map<Dog, DogLap> getDog2Laps() {
-    Map<Dog, DogLap> result = new HashMap<Dog, DogLap>();
+  public @Override Race getRace() { return race; }
+  public @Override void setRace(Race race) { this.race = race; }
+
+  public @Override Map<Dog, DogLap> getDog2Laps() {
+    Map<Dog, DogLap> result = new HashMap<>();
     for (DogLap dLap : getDogLaps()) { result.put(dLap.getDog(), dLap); }
     return result;
   }
 
-  public List<DogLap> getDogLaps() {
+  public @Override List<DogLap> getDogLaps() {
     if (dogLaps == null) { dogLaps = new ArrayList<>(4); }
     return dogLaps;
   }

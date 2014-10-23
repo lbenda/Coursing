@@ -21,7 +21,9 @@ import cz.lbenda.coursing.server.dto.DogImpl;
 import cz.lbenda.coursing.service.DogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Lukas Benda <lbenda @ lbenda.cz> on 6/21/14.
@@ -35,6 +37,13 @@ public class DogServiceImpl  extends AbstractDTOServiceImpl<Dog> implements DogS
   @Override
   protected JpaRepository<Dog, String> repository() {
     return (JpaRepository<Dog, String>) (Object) repository;
+  }
+
+  @Override
+  @Transactional(readOnly = false)
+  @Secured({"ROLE_USER"})
+  public void save(Dog entity) {
+    super.save(entity);
   }
 
   @Override

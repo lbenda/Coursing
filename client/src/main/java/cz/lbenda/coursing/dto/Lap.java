@@ -14,8 +14,11 @@ import java.util.Map;
  */
 public interface Lap extends DTO {
 
-  Integer getLength();
-  void setLength(Integer length);
+  int getPosition();
+  void setPostion(int position);
+
+  Integer getLapLength();
+  void setLapLength(Integer lapLength);
 
   Race getRace();
   void setRace(Race race);

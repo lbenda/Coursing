@@ -17,13 +17,18 @@ package cz.lbenda.coursing.server.service;
 
 import cz.lbenda.coursing.dto.Lap;
 import cz.lbenda.coursing.server.AbstractDTOServiceImpl;
+import cz.lbenda.coursing.server.dto.LapImpl;
 import cz.lbenda.coursing.service.LapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Lukas Benda <lbenda @ lbenda.cz> on 6/21/14.
  */
+@Service("LapService")
 public class LapServiceImpl  extends AbstractDTOServiceImpl<Lap> implements LapService {
 
   @Autowired
@@ -32,5 +37,18 @@ public class LapServiceImpl  extends AbstractDTOServiceImpl<Lap> implements LapS
   @Override
   protected JpaRepository<Lap, String> repository() {
     return (JpaRepository<Lap, String>) (Object) repository;
+  }
+
+  @Override
+  @Transactional(readOnly = false)
+  @Secured({"ROLE_USER"})
+  public void save(Lap entity) {
+    super.save(entity);
+  }
+
+  @Override
+  public Lap createNew() throws UnsupportedOperationException {
+    LapImpl result = new LapImpl();
+    return result;
   }
 }

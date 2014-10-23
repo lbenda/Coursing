@@ -5,33 +5,28 @@
  */
 package cz.lbenda.coursing.client.gui.action;
 
+import cz.lbenda.coursing.client.ClientServiceLocator;
+import cz.lbenda.coursing.client.gui.UserForm;
+import cz.lbenda.coursing.user.UserService;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.openide.awt.ActionID;
-import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
 import org.openide.util.NbBundle.Messages;
 
 @ActionID(
-        category = "Coursing/Admin/User",
+        category = "Coursing/Admin/User/Add",
         id = "cz.lbenda.coursing.client.gui.action.AddUserAction"
 )
 @ActionRegistration(
         iconBase = "cz/lbenda/coursing/client/icon/user-add.png",
         displayName = "#CTL_AddUserAction"
 )
-@ActionReference(path = "Toolbars/Coursing", position = 100)
 @Messages("CTL_AddUserAction=Add new user")
 public final class UserAddAction implements ActionListener {
 
-  private final UserAddCookie context;
-
-  public UserAddAction(UserAddCookie context) {
-    this.context = context;
-  }
-
   @Override
   public void actionPerformed(ActionEvent ev) {
-    context.userAdd(ev);
+    UserForm.showDialog(ClientServiceLocator.getInstance().getBean(UserService.class).createNew());
   }
 }

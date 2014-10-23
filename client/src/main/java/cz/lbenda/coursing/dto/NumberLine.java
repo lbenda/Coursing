@@ -28,4 +28,7 @@ public interface NumberLine extends DTO {
 
     String getComment();
     void setComment(String comment);
+
+    int getSort();
+    void setSort(int sort);
 }

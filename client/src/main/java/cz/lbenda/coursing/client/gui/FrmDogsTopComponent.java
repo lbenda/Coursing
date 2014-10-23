@@ -5,38 +5,19 @@
  */
 package cz.lbenda.coursing.client.gui;
 
-import cz.lbenda.coursing.client.ClientServiceLocator;
-import cz.lbenda.coursing.client.gui.action.DogAddCookie;
-import cz.lbenda.coursing.client.gui.action.DogDelCookie;
-import cz.lbenda.coursing.client.gui.beans.DogImplBeanInfo;
-import cz.lbenda.coursing.dto.Dog;
-import cz.lbenda.coursing.service.AbstractDTOService.DTOChangedListener;
-import cz.lbenda.coursing.service.DogService;
+import cz.lbenda.coursing.client.gui.node.DogChildFactory;
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.beans.IntrospectionException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import javax.swing.Action;
 import javax.swing.JTable;
 import org.netbeans.api.settings.ConvertAsProperties;
-import org.netbeans.swing.outline.DefaultOutlineCellRenderer;
-import org.openide.actions.PropertiesAction;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.explorer.ExplorerManager;
+import org.openide.explorer.ExplorerUtils;
 import org.openide.explorer.view.OutlineView;
 import org.openide.nodes.AbstractNode;
-import org.openide.nodes.BeanNode;
-import org.openide.nodes.ChildFactory;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.NbBundle.Messages;
-import org.openide.util.Utilities;
-import org.openide.util.actions.SystemAction;
-import org.openide.util.lookup.AbstractLookup;
-import org.openide.util.lookup.InstanceContent;
 import org.openide.windows.TopComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,16 +43,20 @@ import org.slf4j.LoggerFactory;
 @Messages({
   "CTL_FrmDogsAction=Dogs table",
   "CTL_FrmDogsTopComponent=Dogs table",
-  "HINT_FrmDogsTopComponent=Show all dogs in database"
+  "HINT_FrmDogsTopComponent=Show all dogs in database",
+  "DN_Dog_Name=Name",
+  "DN_Dog_Breed=Breed",
+  "DN_Dog_GenderType=Gender type",
+  "DN_Dog_LicenceNumber=Licence number",
+  "DN_Dog_Birthdate=Birthdate",
+  "DN_Dog_Comment=Comment",
 })
 public final class FrmDogsTopComponent extends TopComponent implements ExplorerManager.Provider {
 
   private static final Logger LOG = LoggerFactory.getLogger(FrmDogsTopComponent.class);
   private final ExplorerManager em = new ExplorerManager();
   private final OutlineView ov;
-  private final InstanceContent ic = new InstanceContent();
-  private DogChildFactory dogChildrenFactory;
-  private DTOChangedListener<Dog> DTOChangedListener;
+  private final DogChildFactory dogChildrenFactory;
 
   public FrmDogsTopComponent() {
     initComponents();
@@ -85,55 +70,25 @@ public final class FrmDogsTopComponent extends TopComponent implements ExplorerM
     ColumnCellRenderer ccr = new ColumnCellRenderer();
 
     ccr.setCentered(false);
-    // ov.getOutline().setDefaultRenderer(Node.Property.class, ccr);
-    ov.getOutline().setDefaultRenderer(Node.Property.class, new DefaultOutlineCellRenderer());
+    ov.getOutline().setDefaultRenderer(Node.Property.class, ccr);
     add(ov, BorderLayout.CENTER);
-    dogChildrenFactory = new DogChildFactory();
+    dogChildrenFactory = new DogChildFactory(this);
     Node rootNode = new AbstractNode(Children.create(dogChildrenFactory, true));
     em.setRootContext(rootNode);
     definePropertyAndHint();
-
-    ic.add(dogAddCookie);
-    ic.add(em);
-    ic.add(getActionMap());
-    associateLookup(new AbstractLookup(ic));
+    associateLookup(ExplorerUtils.createLookup(em, getActionMap()));
   }
 
   private void definePropertyAndHint() {
-    String[] nameDispName = new String[DogImplBeanInfo.SHOWN_PROPERTIES.length * 2];
-    for (int i = 0; i < DogImplBeanInfo.SHOWN_PROPERTIES.length; i++) {
-      nameDispName[i * 2] = DogImplBeanInfo.SHOWN_PROPERTIES[i];
-      nameDispName[i * 2 + 1] = DogImplBeanInfo.propertyDisplayName(DogImplBeanInfo.SHOWN_PROPERTIES[i]);
-    }
-    LOG.debug(Arrays.toString(nameDispName));
-    ov.setPropertyColumns(nameDispName);
-    for (String prop : DogImplBeanInfo.SHOWN_PROPERTIES) {
-      LOG.debug("Property '" + prop + "' description " + DogImplBeanInfo.propertyShortDescription(prop));
-      ov.setPropertyColumnDescription(prop, DogImplBeanInfo.propertyShortDescription(prop));
-    }
+    ov.setPropertyColumns(new String[] { "name", Bundle.DN_Dog_Name(), "breed", Bundle.DN_Dog_Breed(),
+      "genderType", Bundle.DN_Dog_GenderType(), "licenceNumber", Bundle.DN_Dog_LicenceNumber(),
+      "birthdate", Bundle.DN_Dog_Birthdate(), "comment", Bundle.DN_Dog_Comment()});
   }
 
   @Override
   public ExplorerManager getExplorerManager() {
     return em;
   }
-
-  private DogAddCookie dogAddCookie = new DogAddCookie() {
-    @Override
-    public void addNewDog(ActionEvent ev) {
-      DogService dogService = ClientServiceLocator.getInstance().getBean(DogService.class);
-      // try {
-      DogForm.showDialog(dogService.createNew());
-        /*FrmDogsTopComponent.DogNode node = new FrmDogsTopComponent.DogNode(newDog);
-        ev.setSource(node);
-        node.getPreferredAction().actionPerformed(ev);
-      } catch (IntrospectionException ex) {
-        LOG.error("Faild when dog node is created", ex);
-        throw new RuntimeException("Faild when dog node is created", ex);
-      }
-        */
-    }
-  };
 
   /**
    * This method is called from within the constructor to initialize the form. WARNING: Do NOT
@@ -176,68 +131,5 @@ public final class FrmDogsTopComponent extends TopComponent implements ExplorerM
   void readProperties(java.util.Properties p) {
     String version = p.getProperty("version");
     // TODO read your settings according to their version
-  }
-
-  public static class DogNode extends BeanNode<Dog> {
-    public DogNode(final Dog dog) throws IntrospectionException {
-      this(dog, new InstanceContent());
-    }
-    public DogNode(final Dog dog, final InstanceContent ic) throws IntrospectionException {
-      super(dog, Children.LEAF, new AbstractLookup(ic));
-      ic.add(new DogDelCookie() { public @Override Dog[] removedDogs() { return new Dog[] { dog }; } });
-    }
-    @Override
-    public Action getPreferredAction() {
-      return SystemAction.get(PropertiesAction.class);
-    }
-    @Override
-    public Action[] getActions(boolean context) {
-      List<? extends Action> actions = Utilities.actionsForPath("Actions/Coursing/Dog");
-      Action[] result = new Action[actions.size() + 1];
-      result[0] = SystemAction.get(PropertiesAction.class);
-      for (int i = 0; i < actions.size(); i++) { result[i + 1] = actions.get(i); }
-      return result;
-    }
-  }
-
-  public class DogChildFactory extends ChildFactory<Dog> implements DTOChangedListener<Dog> {
-    private final DogService dogService = ClientServiceLocator.getInstance().getBean(DogService.class);
-    private final List<Dog> newDogs = new ArrayList<>();
-    public DogChildFactory() {
-    }
-    public final void close() {
-      dogService.removeDTOChangedListener(this);
-      newDogs.clear();
-    }
-    public final void open() {
-      dogService.addDTOChangedListener(this);
-    }
-    @Override
-    protected  boolean createKeys(List<Dog> toPopulate) {
-      LOG.debug("createKeys");
-      if (toPopulate.isEmpty()) { toPopulate.addAll(dogService.allEntities()); } // Adding completely new data
-      for (Dog dog : newDogs) {
-        if (!toPopulate.contains(dog)) { toPopulate.add(dog); }
-      }
-      return true;
-    }
-    @Override
-    protected Node createNodeForKey(Dog key) {
-      try {
-        return new DogNode(key);
-      } catch (IntrospectionException ex) {
-        LOG.error("Faild the creating node of DTO", ex);
-      }
-      return null;
-    }
-    @Override
-    public void dtoChanged(Dog oldDTO, Dog newDTO) {
-      LOG.debug("oldDTO, newDTO");
-      if (oldDTO == null && !newDogs.contains(newDTO)) {
-        LOG.debug("refresh");
-        newDogs.add(newDTO);
-        refresh(true);
-      }
-    }
   }
 }

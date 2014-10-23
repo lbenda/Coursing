@@ -17,13 +17,16 @@ package cz.lbenda.coursing.server.service;
 
 import cz.lbenda.coursing.dto.RaceType;
 import cz.lbenda.coursing.server.AbstractDTOServiceImpl;
+import cz.lbenda.coursing.server.dto.RaceTypeImpl;
 import cz.lbenda.coursing.service.RaceTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by Lukas Benda <lbenda @ lbenda.cz> on 6/21/14.
  */
+@Service("RaceTypeService")
 public class RaceTypeServiceImpl  extends AbstractDTOServiceImpl<RaceType> implements RaceTypeService {
 
   @Autowired
@@ -32,5 +35,12 @@ public class RaceTypeServiceImpl  extends AbstractDTOServiceImpl<RaceType> imple
   @Override
   protected JpaRepository<RaceType, String> repository() {
     return (JpaRepository<RaceType, String>) (Object) repository;
+  }
+
+  @Override
+  public RaceType createNew() throws UnsupportedOperationException {
+    RaceTypeImpl result = new RaceTypeImpl();
+    fireDTOChanges(null, result);
+    return result;
   }
 }

@@ -24,4 +24,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface BreedRepository extends JpaRepository<BreedImpl, String> {
+  BreedImpl findByName(String name);
 }

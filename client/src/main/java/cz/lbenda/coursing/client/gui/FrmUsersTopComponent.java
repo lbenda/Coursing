@@ -5,42 +5,27 @@
  */
 package cz.lbenda.coursing.client.gui;
 
+import cz.lbenda.coursing.client.gui.node.UserRootNode;
 import cz.lbenda.coursing.client.ClientServiceLocator;
-import cz.lbenda.coursing.client.gui.action.UserAddCookie;
-import cz.lbenda.coursing.server.security.UserDetailsImpl;
-import cz.lbenda.coursing.service.AbstractDTOService.DTOChangedListener;
 import cz.lbenda.coursing.service.SecurityService;
 import cz.lbenda.coursing.user.User;
 import cz.lbenda.coursing.user.UserRole;
 import cz.lbenda.coursing.user.UserService;
 import java.awt.BorderLayout;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.beans.BeanInfo;
-import java.beans.IntrospectionException;
 import java.lang.ref.WeakReference;
-import java.util.List;
-import javax.swing.Action;
 import org.netbeans.api.settings.ConvertAsProperties;
-import org.openide.actions.CustomizeAction;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.explorer.ExplorerManager;
+import org.openide.explorer.ExplorerUtils;
 import org.openide.explorer.view.BeanTreeView;
 import org.openide.nodes.AbstractNode;
-import org.openide.nodes.BeanNode;
-import org.openide.nodes.ChildFactory;
 import org.openide.nodes.Children;
-import org.openide.nodes.Node;
 import org.openide.util.NbBundle.Messages;
-import org.openide.util.Utilities;
-import org.openide.util.actions.SystemAction;
-import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
 import org.openide.windows.TopComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * Top component which displays something.
@@ -88,9 +73,7 @@ public final class FrmUsersTopComponent extends TopComponent implements Explorer
     tree = new BeanTreeView();
     tree.setRootVisible(true);
     add(tree, BorderLayout.CENTER);
-    ic.add(em);
-    ic.add(getActionMap());
-    associateLookup(new AbstractLookup(ic));
+    associateLookup(ExplorerUtils.createLookup(em, getActionMap()));
   }
 
   public User currentUser() {
@@ -101,23 +84,6 @@ public final class FrmUsersTopComponent extends TopComponent implements Explorer
   public ExplorerManager getExplorerManager() {
     return em;
   }
-
-  private final UserAddCookie userAddCookie = new UserAddCookie() {
-    @Override
-    public void userAdd(ActionEvent ev) {
-      User user = userService.createNew();
-      try {
-        BeanInfo bi = Utilities.getBeanInfo(user.getClass());
-        UserNode node = new UserNode(user);
-        ActionEvent ae = new ActionEvent(node, ev.getID(), "properties", ev.getWhen(),
-                ev.getModifiers());
-        node.getPreferredAction().actionPerformed(ae);
-      } catch (IntrospectionException e) {
-        LOG.error("Failed od node for user creating", e);
-        throw new RuntimeException("Failed od node for user creating", e);
-      }
-    }
-  };
 
   /**
    * This method is called from within the constructor to initialize the form. WARNING: Do NOT
@@ -138,7 +104,6 @@ public final class FrmUsersTopComponent extends TopComponent implements Explorer
     );
   }// </editor-fold>//GEN-END:initComponents
 
-
   private WeakReference<UserRootNode> urn;
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -146,7 +111,7 @@ public final class FrmUsersTopComponent extends TopComponent implements Explorer
   @Override
   public void componentOpened() {
     if (currentUser() != null && UserRole.ADMIN.inArray(currentUser().getRoles())) {
-      ic.add(userAddCookie);
+      // ic.add(userAddCookie);
     } else {
       LOG.debug("Current user: " + currentUser());
     }
@@ -164,7 +129,7 @@ public final class FrmUsersTopComponent extends TopComponent implements Explorer
     final UserRootNode urn = this.urn == null ? null : this.urn.get();
     if (urn != null) { urn.close(); }
     em.setRootContext(new AbstractNode(Children.LEAF));
-    ic.remove(userAddCookie);
+    // ic.remove(userAddCookie);
   }
 
   void writeProperties(java.util.Properties p) {
@@ -177,151 +142,5 @@ public final class FrmUsersTopComponent extends TopComponent implements Explorer
   void readProperties(java.util.Properties p) {
     String version = p.getProperty("version");
     // TODO read your settings according to their version
-  }
-
-  public static class UserRootNode extends AbstractNode {
-    private UserChildFactory ucf;
-    public UserRootNode() {
-      this(new UserChildFactory());
-    }
-    public UserRootNode(UserChildFactory ucf) {
-      super(Children.create(ucf, true));
-      this.ucf = ucf;
-      setName(Bundle.CTL_FrmUsersTopComponent());
-      this.setDisplayName(Bundle.CTL_FrmUsersTopComponent());
-    }
-    @Override
-    public Action[] getActions(boolean context) {
-       List<? extends Action> actions = Utilities.actionsForPath("Coursing/Admin/User");
-      return actions.toArray(new Action[actions.size()]);
-    }
-    public void close() { ucf.close(); }
-    public void open() { ucf.open(); }
-
-    private final static Image smallColor = (new javax.swing.ImageIcon(UserRootNode.class.getResource("/cz/lbenda/coursing/client/icon/users.png"))).getImage(); // NOI18N
-    private final static Image largeColor = (new javax.swing.ImageIcon(UserRootNode.class.getResource("/cz/lbenda/coursing/client/icon/users32.png"))).getImage(); // NOI18N
-    private final static Image smallMono = (new javax.swing.ImageIcon(UserRootNode.class.getResource("/cz/lbenda/coursing/client/icon/users_m.png"))).getImage(); // NOI18N
-    private final static Image largeMono = (new javax.swing.ImageIcon(UserRootNode.class.getResource("/cz/lbenda/coursing/client/icon/users_m32.png"))).getImage(); // NOI18N
-
-    @Override
-    public final Image getIcon(int type) {
-      switch (type) {
-        case BeanInfo.ICON_COLOR_16x16 : return smallColor;
-        case BeanInfo.ICON_COLOR_32x32 : return largeColor;
-        case BeanInfo.ICON_MONO_16x16 : return smallMono;
-        case BeanInfo.ICON_MONO_32x32 : return largeMono;
-        default : return smallColor;
-      }
-    }
-    @Override
-    public final Image getOpenedIcon(int type) {
-      return getIcon(type);
-    }
-  }
-
-  public static class UserNode extends BeanNode<User> {
-    public UserNode(User bean) throws IntrospectionException {
-      super(bean);
-      setName(bean.getUsername());
-      setShortDescription(bean.getFirstName() + " " + bean.getLastName());
-    }
-    @Override
-    public Action getPreferredAction() {
-      return SystemAction.get(CustomizeAction.class);
-    }
-    @Override
-    public Action[] getActions(boolean context) {
-      return new Action[]{SystemAction.get(CustomizeAction.class)};
-    }
-
-    private final static Image smallColor = (new javax.swing.ImageIcon(UserRootNode.class.getResource("/cz/lbenda/coursing/client/icon/user.png"))).getImage(); // NOI18N
-    private final static Image largeColor = (new javax.swing.ImageIcon(UserRootNode.class.getResource("/cz/lbenda/coursing/client/icon/user32.png"))).getImage(); // NOI18N
-    private final static Image smallMono = (new javax.swing.ImageIcon(UserRootNode.class.getResource("/cz/lbenda/coursing/client/icon/user_m.png"))).getImage(); // NOI18N
-    private final static Image largeMono = (new javax.swing.ImageIcon(UserRootNode.class.getResource("/cz/lbenda/coursing/client/icon/user_m32.png"))).getImage(); // NOI18N
-
-    private final static Image smallColorA = (new javax.swing.ImageIcon(UserRootNode.class.getResource("/cz/lbenda/coursing/client/icon/user-admin.png"))).getImage(); // NOI18N
-    private final static Image largeColorA = (new javax.swing.ImageIcon(UserRootNode.class.getResource("/cz/lbenda/coursing/client/icon/user-admin32.png"))).getImage(); // NOI18N
-    private final static Image smallMonoA = (new javax.swing.ImageIcon(UserRootNode.class.getResource("/cz/lbenda/coursing/client/icon/user-admin_m.png"))).getImage(); // NOI18N
-    private final static Image largeMonoA = (new javax.swing.ImageIcon(UserRootNode.class.getResource("/cz/lbenda/coursing/client/icon/user-admin_m32.png"))).getImage(); // NOI18N
-
-    private final static Image smallColorG = (new javax.swing.ImageIcon(UserRootNode.class.getResource("/cz/lbenda/coursing/client/icon/user-guest.png"))).getImage(); // NOI18N
-    private final static Image largeColorG = (new javax.swing.ImageIcon(UserRootNode.class.getResource("/cz/lbenda/coursing/client/icon/user-guest32.png"))).getImage(); // NOI18N
-    private final static Image smallMonoG = (new javax.swing.ImageIcon(UserRootNode.class.getResource("/cz/lbenda/coursing/client/icon/user-guest_m.png"))).getImage(); // NOI18N
-    private final static Image largeMonoG = (new javax.swing.ImageIcon(UserRootNode.class.getResource("/cz/lbenda/coursing/client/icon/user-guest_m32.png"))).getImage(); // NOI18N
-
-    @Override
-    public final Image getIcon(int type) {
-      if (UserRole.ADMIN.inArray(this.getBean().getRoles())) {
-        switch (type) {
-          case BeanInfo.ICON_COLOR_16x16 : return smallColorA;
-          case BeanInfo.ICON_COLOR_32x32 : return largeColorA;
-          case BeanInfo.ICON_MONO_16x16 : return smallMonoA;
-          case BeanInfo.ICON_MONO_32x32 : return largeMonoA;
-          default : return smallColor;
-        }
-      } else if (!UserRole.USER.inArray(this.getBean().getRoles())) {
-        switch (type) {
-          case BeanInfo.ICON_COLOR_16x16 : return smallColorG;
-          case BeanInfo.ICON_COLOR_32x32 : return largeColorG;
-          case BeanInfo.ICON_MONO_16x16 : return smallMonoG;
-          case BeanInfo.ICON_MONO_32x32 : return largeMonoG;
-          default : return smallColor;
-        }
-      } else {
-        switch (type) {
-          case BeanInfo.ICON_COLOR_16x16 : return smallColor;
-          case BeanInfo.ICON_COLOR_32x32 : return largeColor;
-          case BeanInfo.ICON_MONO_16x16 : return smallMono;
-          case BeanInfo.ICON_MONO_32x32 : return largeMono;
-          default : return smallColor;
-        }
-      }
-    }
-    @Override
-    public final Image getOpenedIcon(int type) {
-      return getIcon(type);
-    }
-  }
-
-  public static class UserChildFactory extends ChildFactory<User> implements DTOChangedListener<User> {
-
-    private final UserService userService = ClientServiceLocator.getInstance().getBean(UserService.class);
-
-    public UserChildFactory() {
-      userService.addDTOChangedListener(this);
-    }
-
-    public void close() {
-      userService.removeDTOChangedListener(this);
-    }
-    public void open() {
-      userService.addDTOChangedListener(this);
-      refresh(true);
-    }
-
-    @Override
-    protected boolean createKeys(List<User> toPopulate) {
-      toPopulate.addAll(userService.allEntities());
-      if (toPopulate.isEmpty()) {
-        toPopulate.add(((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser());
-      }
-      return true;
-    }
-
-    @Override
-    protected Node createNodeForKey(User key) {
-      LOG.debug("create node for key: " + key);
-      try {
-        return new UserNode(key);
-      } catch (IntrospectionException ex) {
-        LOG.error("Problem with creating race node", ex);
-        throw new RuntimeException("Problem with creating race node", ex);
-      }
-    }
-
-    @Override
-    public void dtoChanged(User oldDTO, User newDTO) {
-      if (oldDTO == null) { this.refresh(true); }
-    }
   }
 }

@@ -17,13 +17,18 @@ package cz.lbenda.coursing.server.service;
 
 import cz.lbenda.coursing.dto.Judge;
 import cz.lbenda.coursing.server.AbstractDTOServiceImpl;
+import cz.lbenda.coursing.server.dto.JudgeImpl;
 import cz.lbenda.coursing.service.JudgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Lukas Benda <lbenda @ lbenda.cz> on 6/21/14.
  */
+@Service("JudgeService")
 public class JudgeServiceImpl  extends AbstractDTOServiceImpl<Judge> implements JudgeService {
 
   @Autowired
@@ -32,5 +37,19 @@ public class JudgeServiceImpl  extends AbstractDTOServiceImpl<Judge> implements 
   @Override
   protected JpaRepository<Judge, String> repository() {
     return (JpaRepository<Judge, String>) (Object) repository;
+  }
+
+  @Override
+  @Transactional(readOnly = false)
+  @Secured({"ROLE_USER"})
+  public void save(Judge entity) {
+    super.save(entity);
+  }
+
+  @Override
+  public Judge createNew() throws UnsupportedOperationException {
+    JudgeImpl result = new JudgeImpl();
+    fireDTOChanges(null, result);
+    return result;
   }
 }

@@ -21,6 +21,10 @@
             <name>NetBeans</name>
             <url>http://bits.netbeans.org/nexus/content/groups/netbeans/</url>
         </repository>
+        <repository>
+            <id>spring-milestones</id>
+            <url>http://repo.springsource.org/libs-milestone/</url>
+        </repository>
     </repositories>
 
     <build>
@@ -67,6 +71,6 @@
         <eclipselink.version>2.5.1</eclipselink.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.1.0.RELEASE</spring.version>
-        <spring.security.version>4.0.0.CI-SNAPSHOT</spring.security.version>
+        <spring.security.version>4.0.0.M2</spring.security.version>
     </properties>
 </project>

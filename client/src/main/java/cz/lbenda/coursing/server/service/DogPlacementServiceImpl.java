@@ -17,13 +17,18 @@ package cz.lbenda.coursing.server.service;
 
 import cz.lbenda.coursing.dto.DogPlacement;
 import cz.lbenda.coursing.server.AbstractDTOServiceImpl;
+import cz.lbenda.coursing.server.dto.DogPlacementImpl;
 import cz.lbenda.coursing.service.DogPlacementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Lukas Benda <lbenda @ lbenda.cz> on 6/21/14.
  */
+@Service("DogPlacementService")
 public class DogPlacementServiceImpl  extends AbstractDTOServiceImpl<DogPlacement> implements DogPlacementService {
 
   @Autowired
@@ -32,5 +37,18 @@ public class DogPlacementServiceImpl  extends AbstractDTOServiceImpl<DogPlacemen
   @Override
   protected JpaRepository<DogPlacement, String> repository() {
     return (JpaRepository<DogPlacement, String>) (Object) repository;
+  }
+
+  @Override
+  @Transactional(readOnly = false)
+  @Secured({"ROLE_USER"})
+  public void save(DogPlacement entity) {
+    super.save(entity);
+  }
+
+  @Override
+  public DogPlacement createNew() throws UnsupportedOperationException {
+    DogPlacementImpl result = new DogPlacementImpl();
+    return result;
   }
 }

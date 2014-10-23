@@ -28,19 +28,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Lukas Benda <lbenda at lbenda.cz>
  */
-@Service("UserService")
+// @Service("UserService")
 public final class UserServiceImpl extends AbstractDTOServiceImpl<User> implements UserService, UserDetailsService {
 
   private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
 
-  public final static String FIRST_USERNAME = "admin";
-  public final static String FIRST_PASSWORD = AbstractPasswordGenerator.generatePassword("admin");
+  public final static String FIRST_USERNAME = "sys";
+  public final static String FIRST_PASSWORD = AbstractPasswordGenerator.generatePassword("sys");
 
   @Autowired
   private UserRepository repository;

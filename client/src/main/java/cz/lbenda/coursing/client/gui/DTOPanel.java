@@ -115,8 +115,8 @@ public class DTOPanel extends javax.swing.JPanel {
     lCreator.setText(dto.getCreator());
     lModifier.setText(dto.getModifier());
     synchronized (DF) {
-      lDateCreate.setText(DF.format(dto.getCreated()));
-      lDateUpdate.setText(DF.format(dto.getModified()));
+      if (dto.getCreated() != null) { lDateCreate.setText(DF.format(dto.getCreated())); }
+      if (dto.getModified() != null) { lDateUpdate.setText(DF.format(dto.getModified())); }
     }
   }
 }

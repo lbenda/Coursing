@@ -48,6 +48,8 @@ public class DogImpl extends DTOImpl implements Dog {
     private Date birthdate;
     @Column(length=1024)
     private String comment;
+    @Column(length=1024)
+    private String owner;
 
     public @Override String getName() { return name; }
     public @Override void setName(String name) { this.name = name; }
@@ -66,4 +68,7 @@ public class DogImpl extends DTOImpl implements Dog {
 
     public @Override String getComment() { return comment; }
     public @Override void setComment(String comment) { this.comment = comment; }
+
+    public @Override String getOwner() { return owner; }
+    public @Override void setOwner(String owner) { this.owner = owner; }
 }

@@ -38,6 +38,11 @@ public class BreedServiceImpl extends AbstractDTOServiceImpl<Breed> implements B
   }
 
   @Override
+  public Breed breedByName(String name) {
+    return repository.findByName(name);
+  }
+
+  @Override
   public Breed createNew() throws UnsupportedOperationException {
     BreedImpl result = new BreedImpl();
     fireDTOChanges(null, result);

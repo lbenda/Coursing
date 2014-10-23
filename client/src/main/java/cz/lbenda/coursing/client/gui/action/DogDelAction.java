@@ -18,31 +18,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @ActionID(
-        category = "Coursing/Dog",
+        category = "Coursing/Dog/Node",
         id = "cz.lbenda.coursing.client.gui.action.DogDelAction"
 )
 @ActionRegistration(
         iconBase = "cz/lbenda/coursing/client/icon/dog-remove.png",
         displayName = "#CTL_DogDelAction"
 )
-@ActionReference(path = "Toolbars/Coursing", position = 200)
+@ActionReference(path = "Toolbars/Coursing", position = 500)
 @Messages("CTL_DogDelAction=Delte dog")
 public final class DogDelAction implements ActionListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(DogDelAction.class);
 
-  private final DogDelCookie context;
+  private final Dog context;
 
-  public DogDelAction(DogDelCookie context) {
+  public DogDelAction(Dog context) {
     this.context = context;
   }
 
   @Override
   public void actionPerformed(ActionEvent ev) {
-    Dog[] dogs = context.removedDogs();
-    if (dogs == null) { LOG.warn("The removed dogs is null."); }
-    else {
-      ClientServiceLocator.getInstance().getBean(DogService.class).delete(dogs);
-    }
+    ClientServiceLocator.getInstance().getBean(DogService.class).delete(context);
   }
 }

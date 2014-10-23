@@ -7,6 +7,9 @@ package cz.lbenda.coursing.server.security;
 
 import cz.lbenda.coursing.service.SecurityService;
 import cz.lbenda.coursing.user.User;
+import java.util.Collections;
+import java.util.Set;
+import java.util.WeakHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,9 @@ import org.springframework.stereotype.Service;
 @Service("SecurityService")
 public class SecurityServiceImpl implements SecurityService {
 
+  private final Set<SecurityListener> listeners
+          = Collections.newSetFromMap(new WeakHashMap<SecurityListener, Boolean>());
+
   private static final Logger LOG = LoggerFactory.getLogger(SecurityServiceImpl.class);
 
   @Autowired(required = true)
@@ -37,6 +43,13 @@ public class SecurityServiceImpl implements SecurityService {
     UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
     Authentication authentication = authenticationProvider.authenticate(token);
     SecurityContextHolder.getContext().setAuthentication(authentication);
+    for (SecurityListener l : listeners) { l.onLogin(); }
+  }
+
+  @Override
+  public void logout() {
+    SecurityContextHolder.getContext().setAuthentication(null);
+    for (SecurityListener l : listeners) { l.onLogout(); }
   }
 
   @Override
@@ -55,5 +68,13 @@ public class SecurityServiceImpl implements SecurityService {
     } else {
       throw new BadCredentialsException("The old password didn't match to user password.");
     }
+  }
+
+  public void addSecurityListener(SecurityListener l) {
+    this.listeners.add(l);
+  }
+
+  public void removeSecurityListener(SecurityListener l) {
+    this.listeners.remove(l);
   }
 }

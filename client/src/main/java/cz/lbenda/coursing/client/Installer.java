@@ -5,14 +5,13 @@
  */
 package cz.lbenda.coursing.client;
 
-import cz.lbenda.coursing.client.gui.LoginForm;
 import org.openide.modules.ModuleInstall;
 
 public class Installer extends ModuleInstall {
 
   @Override
   public void restored() {
-    LoginForm.showLoginDialog();
+    // LoginForm.showLoginDialog();
   }
 
 }

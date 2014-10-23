@@ -23,21 +23,24 @@ import java.util.Date;
  * Created by Lukas Benda <lbenda @ lbenda.cz> on 6/21/14.
  */
 public interface Dog extends DTO {
-    String getName();
-    void setName(String name);
+  String getName();
+  void setName(String name);
 
-    Breed getBreed();
-    void setBreed(Breed breed);
+  Breed getBreed();
+  void setBreed(Breed breed);
 
-    GenderType getGenderType();
-    void setGenderType(GenderType genderType);
+  GenderType getGenderType();
+  void setGenderType(GenderType genderType);
 
-    String getLicenceNumber();
-    void setLicenceNumber(String licenceNumber);
+  String getLicenceNumber();
+  void setLicenceNumber(String licenceNumber);
 
-    Date getBirthdate();
-    void setBirthdate(Date birthdate);
+  Date getBirthdate();
+  void setBirthdate(Date birthdate);
 
-    String getComment();
-    void setComment(String comment);
+  String getComment();
+  void setComment(String comment);
+
+  String getOwner();
+  void setOwner(String owner);
 }

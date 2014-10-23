@@ -20,10 +20,10 @@ package cz.lbenda.coursing.dto;
  */
 public interface DogLap extends DTO {
   Lap getLap();
-  void setLap();
+  void setLap(Lap lap);
 
   Dog getDog();
-  void setDog();
+  void setDog(Dog dog);
 
   Integer getSpeed();
   void setSpeed(Integer Speed);

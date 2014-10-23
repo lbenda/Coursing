@@ -44,21 +44,21 @@ public class DogLapImpl extends DTOImpl implements DogLap {
   @Column
   private Integer endurance;
 
-  public Lap getLap() { return lap; }
-  public void setLap() { this.lap = lap; }
+  public @Override Lap getLap() { return lap; }
+  public @Override void setLap(Lap lap) { this.lap = lap; }
 
-  public Dog getDog() { return dog; }
-  public void setDog() { this.dog = dog; }
+  public @Override Dog getDog() { return dog; }
+  public @Override void setDog(Dog dog) { this.dog = dog; }
 
-  public Integer getSpeed() { return speed; }
-  public void setSpeed(Integer Speed) { this.speed = speed; }
+  public @Override Integer getSpeed() { return speed; }
+  public @Override void setSpeed(Integer speed) { this.speed = speed; }
 
-  public Integer getEnthusiasm() { return enthusiasm; }
-  public void setEnthusiasm(Integer enthusiasm) { this.enthusiasm = enthusiasm; }
+  public @Override Integer getEnthusiasm() { return enthusiasm; }
+  public @Override void setEnthusiasm(Integer enthusiasm) { this.enthusiasm = enthusiasm; }
 
-  public Integer getAgility() { return agility; }
-  public void setAgility(Integer agility) { this.agility = agility; }
+  public @Override Integer getAgility() { return agility; }
+  public @Override void setAgility(Integer agility) { this.agility = agility; }
 
-  public Integer getEndurance() { return endurance; }
-  public void setEndurance(Integer endurance) { this.endurance = endurance; }
+  public @Override Integer getEndurance() { return endurance; }
+  public @Override void setEndurance(Integer endurance) { this.endurance = endurance; }
 }

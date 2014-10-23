@@ -7,6 +7,7 @@ package cz.lbenda.coursing.client.gui;
 
 import cz.lbenda.coursing.client.ClientServiceLocator;
 import cz.lbenda.coursing.service.SecurityService;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -20,8 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.AuthenticationException;
 
-/**
- *
+/** Form for login user
  * @author Lukas Benda <lbenda at lbenda.cz>
  */
 @Messages({
@@ -30,6 +30,8 @@ import org.springframework.security.core.AuthenticationException;
 public class LoginForm extends javax.swing.JPanel {
 
   private static final Logger LOG = LoggerFactory.getLogger(LoginForm.class);
+
+  private static final Image LOGIN_ICON = (new javax.swing.ImageIcon(FrmJudgeTopComponent.class.getResource("/cz/lbenda/coursing/client/icon/login128.png"))).getImage(); // NOI18N
 
   /**
    * Creates new form LoginForm

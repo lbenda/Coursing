@@ -6,10 +6,10 @@
 
 package cz.lbenda.coursing.client;
 
+import cz.lbenda.coursing.server.PrepareDB;
 import cz.lbenda.coursing.server.user.UserServiceImpl;
+import java.io.File;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import net.sf.ehcache.CacheManager;
@@ -76,6 +76,7 @@ public class ClientAppConfig {
       factory.setPersistenceXmlLocation("classpath*:META-INF/persistence.xml");
       factory.setPersistenceUnitName("coursing");
 
+      /*
       Map<String, String> prop = new HashMap<>();
       prop.put("eclipselink.deploy-on-startup", "true");
       prop.put("eclipselink.ddl-generation", "create-or-extend-tables");
@@ -90,6 +91,7 @@ public class ClientAppConfig {
       prop.put("eclipselink.jdbc.batch-writing.size", "1000");
 
       factory.setJpaPropertyMap(prop);
+      */
 
       // factory.setLoadTimeWeaver(new InstrumentationLoadTimeWeaver());
       factory.afterPropertiesSet();
@@ -105,7 +107,10 @@ public class ClientAppConfig {
     LOG.debug("Datasource nebyl nalezen pomoci springu.");
     // try {
       JdbcDataSource ds = new JdbcDataSource();
-      ds.setUrl("jdbc:h2:tcp://localhost/coursing");
+      // ds.setUrl("jdbc:h2:tcp://localhost/coursing");
+      // ds.setUrl("jdbc:h2:mem:coursing");
+      // ds.setUrl("jdbc:h2:/tmp/coursing");
+      ds.setUrl("jdbc:h2:" + localDb() + ";AUTO_SERVER=TRUE");
       ds.setUser("sa");
       ds.setPassword("");
       return ds;
@@ -114,6 +119,12 @@ public class ClientAppConfig {
     // } catch (NamingException e) {
     //  throw new RuntimeException("No data source with name '" + DATASORUCE_NAME + "' is defined.", e);
     // }
+  }
+
+  public @Bean String localDb() {
+    String userDir = System.getProperty("user.home");
+    if (userDir == null) { userDir = System.getProperty("user.dir"); }
+    return userDir + File.separator + "coursing";
   }
 
   public @Bean PlatformTransactionManager transactionManager() {
@@ -141,7 +152,7 @@ public class ClientAppConfig {
 
   public @Bean AuthenticationProvider authenticationProvider() {
     DaoAuthenticationProvider result = new DaoAuthenticationProvider();
-    result.setUserDetailsService(userDetails());
+    result.setUserDetailsService(UserService());
     result.setUserCache(userCache());
     result.setPasswordEncoder(passwordEncoder());
     return result;
@@ -165,5 +176,7 @@ public class ClientAppConfig {
     }
   }
   */
-  public @Bean UserDetailsService userDetails() { return new UserServiceImpl(); }
+  public @Bean UserDetailsService UserService() { return new UserServiceImpl(); }
+
+  public @Bean PrepareDB prepareDB() { return new PrepareDB(); }
 }

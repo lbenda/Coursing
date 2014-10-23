@@ -17,9 +17,10 @@ package cz.lbenda.coursing.server;
 
 import cz.lbenda.coursing.dto.DTO;
 import cz.lbenda.coursing.service.AbstractDTOService;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.WeakHashMap;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,7 +84,8 @@ public abstract class AbstractDTOServiceImpl<T extends DTO> implements AbstractD
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 
-  private final Set<DTOChangedListener<T>> dtoChangeListener = new HashSet<>();
+  private final Set<DTOChangedListener<T>> dtoChangeListener
+          = Collections.newSetFromMap(new WeakHashMap<DTOChangedListener<T>, Boolean>());
 
   /** Fire event the DTO is changed {@see AbstractDTOService.DTOChangedListener} */
   protected final void fireDTOChanges(T oldDTO, T newDTO) {

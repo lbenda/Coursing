@@ -5,14 +5,15 @@
  */
 package cz.lbenda.coursing.client.gui.action;
 
+import cz.lbenda.coursing.client.ClientServiceLocator;
+import cz.lbenda.coursing.client.gui.DogForm;
+import cz.lbenda.coursing.service.DogService;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
 import org.openide.util.NbBundle.Messages;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @ActionID(
         category = "Coursing/Dog",
@@ -22,20 +23,13 @@ import org.slf4j.LoggerFactory;
         iconBase = "cz/lbenda/coursing/client/icon/dog-add.png",
         displayName = "#CTL_DogAddAction"
 )
-@ActionReference(path = "Toolbars/Coursing", position = 0)
+@ActionReference(path = "Toolbars/Coursing", position = 300)
 @Messages("CTL_DogAddAction=Add new DOG")
 public final class DogAddAction implements ActionListener {
 
-  private static final Logger LOG = LoggerFactory.getLogger(DogAddAction.class);
-
-  private final DogAddCookie context;
-
-  public DogAddAction(DogAddCookie context) {
-    this.context = context;
-  }
-
   @Override
   public void actionPerformed(ActionEvent ev) {
-    context.addNewDog(ev);
+    DogService dogService = ClientServiceLocator.getInstance().getBean(DogService.class);
+    DogForm.showDialog(dogService.createNew());
   }
 }

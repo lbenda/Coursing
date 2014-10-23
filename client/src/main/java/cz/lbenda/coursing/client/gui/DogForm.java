@@ -66,23 +66,45 @@ public class DogForm extends javax.swing.JPanel implements Customizer {
 
     jScrollPane1 = new javax.swing.JScrollPane();
     taComment = new javax.swing.JTextArea();
-    pDTO = new javax.swing.JPanel();
-    jPanel2 = new javax.swing.JPanel();
-    lName = new javax.swing.JLabel();
-    tfName = new javax.swing.JTextField();
-    lBreed = new javax.swing.JLabel();
-    cbBreed = new javax.swing.JComboBox();
-    lGender = new javax.swing.JLabel();
-    cbGender = new javax.swing.JComboBox();
-    lLicenceNumber = new javax.swing.JLabel();
-    tfLicenceNumber = new javax.swing.JTextField();
-    dcBirthday = new com.toedter.calendar.JDateChooser();
     lComment = new javax.swing.JLabel();
     lBirthday = new javax.swing.JLabel();
+    dcBirthday = new com.toedter.calendar.JDateChooser();
+    tfLicenceNumber = new javax.swing.JTextField();
+    lLicenceNumber = new javax.swing.JLabel();
+    lGender = new javax.swing.JLabel();
+    cbGender = new javax.swing.JComboBox();
+    cbBreed = new javax.swing.JComboBox();
+    lBreed = new javax.swing.JLabel();
+    lName = new javax.swing.JLabel();
+    tfName = new javax.swing.JTextField();
+    pDTO = new javax.swing.JPanel();
+    lOwner = new javax.swing.JLabel();
+    tfOwner = new javax.swing.JTextField();
 
     taComment.setColumns(20);
     taComment.setRows(5);
     jScrollPane1.setViewportView(taComment);
+
+    org.openide.awt.Mnemonics.setLocalizedText(lComment, org.openide.util.NbBundle.getMessage(DogForm.class, "DogForm.lComment.text")); // NOI18N
+
+    org.openide.awt.Mnemonics.setLocalizedText(lBirthday, org.openide.util.NbBundle.getMessage(DogForm.class, "DogForm.lBirthday.text")); // NOI18N
+
+    tfLicenceNumber.setText(org.openide.util.NbBundle.getMessage(DogForm.class, "DogForm.tfLicenceNumber.text")); // NOI18N
+    tfLicenceNumber.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        tfLicenceNumberActionPerformed(evt);
+      }
+    });
+
+    org.openide.awt.Mnemonics.setLocalizedText(lLicenceNumber, org.openide.util.NbBundle.getMessage(DogForm.class, "DogForm.lLicenceNumber.text")); // NOI18N
+
+    org.openide.awt.Mnemonics.setLocalizedText(lGender, org.openide.util.NbBundle.getMessage(DogForm.class, "DogForm.lGender.text")); // NOI18N
+
+    org.openide.awt.Mnemonics.setLocalizedText(lBreed, org.openide.util.NbBundle.getMessage(DogForm.class, "DogForm.lBreed.text")); // NOI18N
+
+    org.openide.awt.Mnemonics.setLocalizedText(lName, org.openide.util.NbBundle.getMessage(DogForm.class, "DogForm.lName.text")); // NOI18N
+
+    tfName.setText(org.openide.util.NbBundle.getMessage(DogForm.class, "DogForm.tfName.text")); // NOI18N
 
     pDTO.setMaximumSize(new java.awt.Dimension(32767, 60));
     pDTO.setMinimumSize(new java.awt.Dimension(100, 60));
@@ -96,110 +118,94 @@ public class DogForm extends javax.swing.JPanel implements Customizer {
     );
     pDTOLayout.setVerticalGroup(
       pDTOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 86, Short.MAX_VALUE)
+      .addGap(0, 60, Short.MAX_VALUE)
     );
 
-    org.openide.awt.Mnemonics.setLocalizedText(lName, org.openide.util.NbBundle.getMessage(DogForm.class, "DogForm.lName.text")); // NOI18N
+    org.openide.awt.Mnemonics.setLocalizedText(lOwner, org.openide.util.NbBundle.getMessage(DogForm.class, "DogForm.lOwner.text")); // NOI18N
 
-    tfName.setText(org.openide.util.NbBundle.getMessage(DogForm.class, "DogForm.tfName.text")); // NOI18N
-
-    org.openide.awt.Mnemonics.setLocalizedText(lBreed, org.openide.util.NbBundle.getMessage(DogForm.class, "DogForm.lBreed.text")); // NOI18N
-
-    org.openide.awt.Mnemonics.setLocalizedText(lGender, org.openide.util.NbBundle.getMessage(DogForm.class, "DogForm.lGender.text")); // NOI18N
-
-    org.openide.awt.Mnemonics.setLocalizedText(lLicenceNumber, org.openide.util.NbBundle.getMessage(DogForm.class, "DogForm.lLicenceNumber.text")); // NOI18N
-
-    tfLicenceNumber.setText(org.openide.util.NbBundle.getMessage(DogForm.class, "DogForm.tfLicenceNumber.text")); // NOI18N
-
-    org.openide.awt.Mnemonics.setLocalizedText(lComment, org.openide.util.NbBundle.getMessage(DogForm.class, "DogForm.lComment.text")); // NOI18N
-
-    org.openide.awt.Mnemonics.setLocalizedText(lBirthday, org.openide.util.NbBundle.getMessage(DogForm.class, "DogForm.lBirthday.text")); // NOI18N
-
-    javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-    jPanel2.setLayout(jPanel2Layout);
-    jPanel2Layout.setHorizontalGroup(
-      jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(jPanel2Layout.createSequentialGroup()
-        .addContainerGap()
-        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(jPanel2Layout.createSequentialGroup()
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(lLicenceNumber)
-              .addComponent(lName)
-              .addComponent(lBreed)
-              .addComponent(lGender)
-              .addComponent(lBirthday))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(dcBirthday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-              .addComponent(tfName, javax.swing.GroupLayout.Alignment.TRAILING)
-              .addComponent(tfLicenceNumber)
-              .addComponent(cbGender, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-              .addComponent(cbBreed, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-          .addGroup(jPanel2Layout.createSequentialGroup()
-            .addComponent(lComment)
-            .addGap(0, 0, Short.MAX_VALUE)))
-        .addContainerGap())
-    );
-    jPanel2Layout.setVerticalGroup(
-      jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(jPanel2Layout.createSequentialGroup()
-        .addContainerGap()
-        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(lName))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(lBreed, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(cbBreed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(3, 3, 3)
-        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(lGender)
-          .addComponent(cbGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(tfLicenceNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(lLicenceNumber))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-          .addGroup(jPanel2Layout.createSequentialGroup()
-            .addComponent(dcBirthday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(32, 32, 32))
-          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-            .addComponent(lBirthday)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(lComment)
-            .addGap(6, 6, 6))))
-    );
+    tfOwner.setText(org.openide.util.NbBundle.getMessage(DogForm.class, "DogForm.tfOwner.text")); // NOI18N
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
     this.setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addComponent(pDTO, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+      .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
       .addGroup(layout.createSequentialGroup()
-        .addContainerGap()
-        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
-        .addContainerGap())
-      .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-      .addComponent(pDTO, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(lBreed)
+                .addComponent(lGender)
+                .addComponent(lName)
+                .addComponent(lBirthday))
+              .addGap(55, 55, 55))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+              .addComponent(lLicenceNumber)
+              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(lOwner)
+            .addGap(65, 65, 65)))
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(dcBirthday, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(tfLicenceNumber)
+          .addComponent(cbBreed, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(cbGender, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(tfName)
+          .addComponent(tfOwner)))
+      .addGroup(layout.createSequentialGroup()
+        .addComponent(lComment)
+        .addGap(0, 0, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(pDTO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(lName)
+              .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(lBreed, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(cbBreed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addGroup(layout.createSequentialGroup()
+                .addComponent(cbGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                  .addComponent(tfLicenceNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addComponent(lLicenceNumber)))
+              .addGroup(layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(lGender)))
+            .addGap(12, 12, 12)
+            .addComponent(lBirthday))
+          .addComponent(dcBirthday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(lOwner)
+          .addComponent(tfOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(pDTO, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addComponent(lComment)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))
     );
   }// </editor-fold>//GEN-END:initComponents
+
+  private void tfLicenceNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfLicenceNumberActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_tfLicenceNumberActionPerformed
 
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JComboBox cbBreed;
   private javax.swing.JComboBox cbGender;
   private com.toedter.calendar.JDateChooser dcBirthday;
-  private javax.swing.JPanel jPanel2;
   private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JLabel lBirthday;
   private javax.swing.JLabel lBreed;
@@ -207,10 +213,12 @@ public class DogForm extends javax.swing.JPanel implements Customizer {
   private javax.swing.JLabel lGender;
   private javax.swing.JLabel lLicenceNumber;
   private javax.swing.JLabel lName;
+  private javax.swing.JLabel lOwner;
   private javax.swing.JPanel pDTO;
   private javax.swing.JTextArea taComment;
   private javax.swing.JTextField tfLicenceNumber;
   private javax.swing.JTextField tfName;
+  private javax.swing.JTextField tfOwner;
   // End of variables declaration//GEN-END:variables
 
   private Dog dog;
@@ -223,11 +231,12 @@ public class DogForm extends javax.swing.JPanel implements Customizer {
   public void setDog(Dog dog) {
     this.dog = dog;
     tfName.setText(dog.getName());
-    lLicenceNumber.setText(dog.getLicenceNumber());
+    tfLicenceNumber.setText(dog.getLicenceNumber());
     dcBirthday.setDate(dog.getBirthdate());
     cbGender.setSelectedItem(dog.getGenderType());
     cbBreed.setSelectedItem(dog.getBreed());
     taComment.setText(dog.getComment());
+    tfOwner.setText(dog.getOwner());
     this.dtoPanel.setDTO(dog);
   }
 
@@ -238,6 +247,7 @@ public class DogForm extends javax.swing.JPanel implements Customizer {
     dog.setBreed((Breed) cbBreed.getSelectedItem());
     dog.setGenderType((GenderType) cbGender.getSelectedItem());
     dog.setComment(taComment.getText());
+    dog.setOwner(tfOwner.getText());
     return dog;
   }
 

@@ -17,13 +17,18 @@ package cz.lbenda.coursing.server.service;
 
 import cz.lbenda.coursing.dto.DogLap;
 import cz.lbenda.coursing.server.AbstractDTOServiceImpl;
+import cz.lbenda.coursing.server.dto.DogLapImpl;
 import cz.lbenda.coursing.service.DogLapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Lukas Benda <lbenda @ lbenda.cz> on 6/21/14.
  */
+@Service("DogLapService")
 public class DogLapServiceImpl  extends AbstractDTOServiceImpl<DogLap> implements DogLapService {
 
   @Autowired
@@ -32,5 +37,18 @@ public class DogLapServiceImpl  extends AbstractDTOServiceImpl<DogLap> implement
   @Override
   protected JpaRepository<DogLap, String> repository() {
     return (JpaRepository<DogLap, String>) (Object) repository;
+  }
+
+  @Override
+  @Transactional(readOnly = false)
+  @Secured({"ROLE_USER"})
+  public void save(DogLap entity) {
+    super.save(entity);
+  }
+
+  @Override
+  public DogLap createNew() throws UnsupportedOperationException {
+    DogLapImpl result = new DogLapImpl();
+    return result;
   }
 }

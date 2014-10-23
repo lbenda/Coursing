@@ -74,16 +74,15 @@ public class UserDetailsImpl implements UserDetails {
   @Override
   public String getUsername() { return user.getUsername(); }
   @Override
-  public boolean isAccountNonExpired() { return user.getValidTo() == null; }
+  public boolean isAccountNonExpired() { return user.getValidTo() == null || (new Date()).compareTo(user.getValidTo()) >= 0; }
   @Override
   public boolean isAccountNonLocked() { return !user.isLocked(); }
   @Override
   public boolean isCredentialsNonExpired() { return true; }
   @Override
   public boolean isEnabled() {
-    if (user == NULL_USER) { return false; }
-    return !user.isLocked() && (user.getValidTo() == null || (new Date()).compareTo(user.getValidTo()) >= 0)
-            && (user.getValidFrom() == null || (new Date()).compareTo(user.getValidFrom()) <= 0);
+    if (user == NULL_USER || user == null) { return false; }
+    return isAccountNonExpired() && isAccountNonLocked();
   }
 
   public final User getUser() {

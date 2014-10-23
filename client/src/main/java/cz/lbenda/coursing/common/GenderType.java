@@ -6,10 +6,9 @@
 
 package cz.lbenda.coursing.common;
 
-/**
- *
+/** Gender
  * @author benzin
  */
 public enum GenderType {
-    MAN, WOMAN, ;
+  MAN, WOMAN, ;
 }

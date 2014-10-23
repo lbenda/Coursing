@@ -15,12 +15,18 @@
  */
 package cz.lbenda.coursing.server.service;
 
+import cz.lbenda.coursing.dto.Lap;
 import cz.lbenda.coursing.dto.Race;
 import cz.lbenda.coursing.server.AbstractDTOServiceImpl;
+import cz.lbenda.coursing.server.dto.RaceImpl;
+import cz.lbenda.coursing.service.LapService;
 import cz.lbenda.coursing.service.RaceService;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Lukas Benda <lbenda @ lbenda.cz> on 6/21/14.
@@ -30,9 +36,35 @@ public class RaceServiceImpl  extends AbstractDTOServiceImpl<Race> implements Ra
 
   @Autowired
   private RaceRepository repository;
+  @Autowired
+  private LapService lapService;
 
   @Override
   protected JpaRepository<Race, String> repository() {
     return (JpaRepository<Race, String>) (Object) repository;
+  }
+
+  @Override
+  @Transactional(readOnly = false)
+  @Secured({"ROLE_USER"})
+  public void save(Race entity) {
+    super.save(entity);
+  }
+
+  @Override
+  public Race createNew() throws UnsupportedOperationException {
+    RaceImpl result = new RaceImpl();
+    result.setDateOfRace(new Date());
+
+    Lap lap = lapService.createNew();
+    lap.setPostion(1);
+    lap.setRace(result);
+    result.getLaps().add(lap);
+    lap = lapService.createNew();
+    lap.setPostion(2);
+    lap.setRace(result);
+    result.getLaps().add(lap);
+    this.fireDTOChanges(null, result);
+    return result;
   }
 }
